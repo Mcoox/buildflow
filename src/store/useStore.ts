@@ -6,10 +6,17 @@ const STORAGE_KEY = 'buildflow-data-v3'
 const LEGACY_KEYS = ['buildflow-data-v2', 'buildflow-data']
 
 function mergeWithSeed(parsed: Partial<AppData>): AppData {
+  const company = {
+    ...seedData.company,
+    ...parsed.company,
+    tagline: parsed.company?.tagline ?? seedData.company.tagline,
+    website: parsed.company?.website ?? seedData.company.website,
+    logoUrl: parsed.company?.logoUrl ?? seedData.company.logoUrl,
+  }
   return {
     ...seedData,
     ...parsed,
-    company: parsed.company ?? seedData.company,
+    company,
     customers: parsed.customers ?? seedData.customers,
     quotes: parsed.quotes ?? seedData.quotes,
     invoices: parsed.invoices ?? seedData.invoices,

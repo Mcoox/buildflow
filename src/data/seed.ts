@@ -5,11 +5,14 @@ export const seedData: AppData = {
   company: {
     name: COMPANY.name,
     legalName: COMPANY.legalName,
+    tagline: COMPANY.tagline,
     email: COMPANY.email,
     phone: COMPANY.phone,
+    website: 'https://www.lusabusisiwe.co.za',
     address: COMPANY.address,
     registration: COMPANY.registration,
     vatNumber: COMPANY.vatNumber,
+    logoUrl: null,
   },
   customers: [
     {

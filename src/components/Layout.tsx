@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { COMPANY } from '../config/company'
+import { CompanyLogo } from './CompanyLogo'
+import type { Store } from '../store/useStore'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: '📊' },
@@ -12,19 +13,22 @@ const navItems = [
   { to: '/assets', label: 'Assets', icon: '🚜' },
   { to: '/hr', label: 'HR', icon: '👷' },
   { to: '/tutorial', label: 'Tutorial', icon: '🎬' },
+  { to: '/settings', label: 'Settings', icon: '⚙️' },
 ]
 
-export function Layout() {
+export function Layout({ store }: { store: Store }) {
+  const { company } = store.data
+
   return (
     <div className="layout">
       <aside className="sidebar">
-        <div className="sidebar-brand">
-          <span className="brand-icon">🏗️</span>
+        <NavLink to="/settings" className="sidebar-brand sidebar-brand-link">
+          <CompanyLogo company={company} size="md" />
           <div>
-            <span className="brand-name">{COMPANY.name}</span>
-            <span className="brand-tag">{COMPANY.tagline}</span>
+            <span className="brand-name">{company.name}</span>
+            <span className="brand-tag">{company.tagline}</span>
           </div>
-        </div>
+        </NavLink>
         <nav className="sidebar-nav">
           {navItems.map((item) => (
             <NavLink
@@ -39,7 +43,9 @@ export function Layout() {
           ))}
         </nav>
         <div className="sidebar-footer">
-          <span>{COMPANY.name} v1.0</span>
+          <NavLink to="/settings" className="sidebar-footer-link">
+            ⚙️ Company Settings
+          </NavLink>
         </div>
       </aside>
       <main className="main-content">

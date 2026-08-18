@@ -8,6 +8,7 @@ import { Inventory } from './pages/Inventory'
 import { Invoices } from './pages/Invoices'
 import { Projects } from './pages/Projects'
 import { Quotes } from './pages/Quotes'
+import { Settings } from './pages/Settings'
 import { Suppliers } from './pages/Suppliers'
 import { Tutorial } from './pages/Tutorial'
 import { useStore } from './store/useStore'
@@ -17,7 +18,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route element={<Layout store={store} />}>
         <Route index element={<Dashboard store={store} />} />
         <Route path="customers" element={<Customers store={store} />} />
         <Route path="quotes" element={<Quotes store={store} />} />
@@ -28,6 +29,7 @@ function AppRoutes() {
         <Route path="assets" element={<Assets store={store} />} />
         <Route path="hr" element={<HR store={store} />} />
         <Route path="tutorial" element={<Tutorial store={store} />} />
+        <Route path="settings" element={<Settings store={store} />} />
       </Route>
     </Routes>
   )

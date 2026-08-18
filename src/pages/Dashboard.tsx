@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { CompanyLogo } from '../components/CompanyLogo'
 import { StatusBadge, StatCard } from '../components/ui'
 import type { Store } from '../store/useStore'
 import { formatCurrency, lineItemsTotal } from '../utils/format'
@@ -37,13 +38,23 @@ export function Dashboard({ store }: { store: Store }) {
       </div>
 
       <div className="company-banner card">
+        <CompanyLogo company={company} size="lg" />
         <div className="company-banner-info">
           <h2>{company.legalName}</h2>
+          {company.tagline && <p className="company-tagline">{company.tagline}</p>}
           <p>{company.address}</p>
           <p className="text-muted">
             Reg: {company.registration} · VAT: {company.vatNumber} · {company.email} · {company.phone}
           </p>
+          {company.website && (
+            <p className="text-muted">
+              <a href={company.website} target="_blank" rel="noreferrer" className="company-website-link">
+                {company.website}
+              </a>
+            </p>
+          )}
         </div>
+        <Link to="/settings" className="btn-sm company-edit-link">Edit</Link>
       </div>
 
       <div className="stats-grid">

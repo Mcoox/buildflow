@@ -102,11 +102,14 @@ export interface TimeOffRequest {
 export interface Company {
   name: string
   legalName: string
+  tagline: string
   email: string
   phone: string
+  website: string
   address: string
   registration: string
   vatNumber: string
+  logoUrl: string | null
 }
 
 export type SupplierStatus = 'active' | 'inactive'
