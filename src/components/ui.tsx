@@ -24,6 +24,16 @@ const colors: Record<string, string> = {
   vacation: 'badge-blue',
   sick: 'badge-orange',
   personal: 'badge-purple',
+  materials: 'badge-blue',
+  equipment: 'badge-orange',
+  services: 'badge-purple',
+  subcontractor: 'badge-yellow',
+  available: 'badge-green',
+  'in-use': 'badge-orange',
+  maintenance: 'badge-yellow',
+  retired: 'badge-gray',
+  low: 'badge-red',
+  ok: 'badge-green',
 }
 
 export function StatusBadge({ status }: { status: string }) {

@@ -271,6 +271,39 @@ tbody tr:hover {
   background: #fafbfc;
 }
 
+tbody tr.row-warning {
+  background: #fffbeb;
+}
+
+tbody tr.row-warning:hover {
+  background: #fef3c7;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.qty-controls span {
+  min-width: 70px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.asset-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+  color: var(--primary);
+}
+
+.chip-warning {
+  background: var(--yellow-light);
+  color: var(--yellow);
+  margin-top: 0.5rem;
+}
+
 .contact-cell {
   display: flex;
   flex-direction: column;
@@ -418,6 +451,14 @@ tbody tr:hover {
 /* Toolbar */
 .toolbar {
   margin-bottom: 1rem;
+}
+
+.toolbar-split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .search-input {

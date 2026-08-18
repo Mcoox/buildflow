@@ -15,9 +15,11 @@ export function Dashboard({ store }: { store: Store }) {
     .filter((i) => i.status === 'sent' || i.status === 'overdue')
     .reduce((sum, i) => sum + lineItemsTotal(i.lineItems), 0)
   const activeCustomers = data.customers.filter((c) => c.status === 'active').length
-  const pendingQuotes = data.quotes.filter((q) => q.status === 'sent' || q.status === 'draft').length
   const activeEmployees = data.employees.filter((e) => e.status === 'active').length
   const pendingTimeOff = data.timeOffRequests.filter((t) => t.status === 'pending').length
+  const lowStock = data.inventory.filter((i) => i.quantity <= i.reorderLevel).length
+  const assetsInUse = data.assets.filter((a) => a.status === 'in-use').length
+  const activeSuppliers = data.suppliers.filter((s) => s.status === 'active').length
 
   const recentProjects = [...data.projects]
     .sort((a, b) => b.startDate.localeCompare(a.startDate))
@@ -49,7 +51,9 @@ export function Dashboard({ store }: { store: Store }) {
         <StatCard label="Revenue Collected" value={formatCurrency(totalRevenue)} accent="accent-green" />
         <StatCard label="Outstanding" value={formatCurrency(outstanding)} accent="accent-yellow" />
         <StatCard label="Active Customers" value={activeCustomers} />
-        <StatCard label="Pending Quotes" value={pendingQuotes} />
+        <StatCard label="Low Stock Items" value={lowStock} accent="accent-yellow" />
+        <StatCard label="Assets In Use" value={assetsInUse} />
+        <StatCard label="Active Suppliers" value={activeSuppliers} />
         <StatCard label="Team Members" value={activeEmployees} />
       </div>
 
@@ -57,6 +61,13 @@ export function Dashboard({ store }: { store: Store }) {
         <div className="alert alert-warning">
           ⚠️ {overdueInvoices.length} overdue invoice{overdueInvoices.length > 1 ? 's' : ''} —
           <Link to="/invoices"> Review now</Link>
+        </div>
+      )}
+
+      {lowStock > 0 && (
+        <div className="alert alert-warning">
+          📦 {lowStock} inventory item{lowStock > 1 ? 's' : ''} below reorder level —
+          <Link to="/inventory"> Check stock</Link>
         </div>
       )}
 
@@ -102,6 +113,9 @@ export function Dashboard({ store }: { store: Store }) {
             <Link to="/quotes" className="quick-action">+ Create Quote</Link>
             <Link to="/invoices" className="quick-action">+ New Invoice</Link>
             <Link to="/projects" className="quick-action">+ New Project</Link>
+            <Link to="/suppliers" className="quick-action">+ Add Supplier</Link>
+            <Link to="/inventory" className="quick-action">+ Stock Item</Link>
+            <Link to="/assets" className="quick-action">+ Register Asset</Link>
             <Link to="/tutorial" className="quick-action">🎬 Watch Tutorial</Link>
           </div>
           {pendingTimeOff > 0 && (

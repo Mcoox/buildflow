@@ -1,11 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { Assets } from './pages/Assets'
 import { Customers } from './pages/Customers'
 import { Dashboard } from './pages/Dashboard'
 import { HR } from './pages/HR'
+import { Inventory } from './pages/Inventory'
 import { Invoices } from './pages/Invoices'
 import { Projects } from './pages/Projects'
 import { Quotes } from './pages/Quotes'
+import { Suppliers } from './pages/Suppliers'
 import { Tutorial } from './pages/Tutorial'
 import { useStore } from './store/useStore'
 
@@ -20,6 +23,9 @@ function AppRoutes() {
         <Route path="quotes" element={<Quotes store={store} />} />
         <Route path="invoices" element={<Invoices store={store} />} />
         <Route path="projects" element={<Projects store={store} />} />
+        <Route path="suppliers" element={<Suppliers store={store} />} />
+        <Route path="inventory" element={<Inventory store={store} />} />
+        <Route path="assets" element={<Assets store={store} />} />
         <Route path="hr" element={<HR store={store} />} />
         <Route path="tutorial" element={<Tutorial store={store} />} />
       </Route>

@@ -27,6 +27,18 @@ const TUTORIAL_SECTIONS = [
     title: 'HR',
     description: 'Maintain your employee directory, certifications, and approve or deny time-off requests.',
   },
+  {
+    title: 'Suppliers',
+    description: 'Manage vendors, payment terms, and link suppliers to your inventory items.',
+  },
+  {
+    title: 'Inventory',
+    description: 'Track stock levels, SKUs, warehouse locations, and get low-stock alerts.',
+  },
+  {
+    title: 'Assets',
+    description: 'Register vehicles, machinery, and tools. Assign to projects and track maintenance schedules.',
+  },
 ]
 
 export function Tutorial({ store }: { store: Store }) {

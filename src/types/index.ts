@@ -109,6 +109,59 @@ export interface Company {
   vatNumber: string
 }
 
+export type SupplierStatus = 'active' | 'inactive'
+export type SupplierCategory = 'materials' | 'equipment' | 'services' | 'subcontractor'
+
+export interface Supplier {
+  id: string
+  name: string
+  contactName: string
+  email: string
+  phone: string
+  address: string
+  category: SupplierCategory
+  status: SupplierStatus
+  paymentTerms: string
+  notes: string
+  createdAt: string
+}
+
+export type InventoryCategory = 'cement' | 'steel' | 'timber' | 'electrical' | 'plumbing' | 'safety' | 'tools' | 'other'
+
+export interface InventoryItem {
+  id: string
+  sku: string
+  name: string
+  category: InventoryCategory
+  supplierId: string
+  quantity: number
+  unit: string
+  reorderLevel: number
+  unitCost: number
+  location: string
+  lastRestocked: string
+  notes: string
+}
+
+export type AssetCategory = 'vehicle' | 'machinery' | 'tools' | 'equipment' | 'it'
+export type AssetStatus = 'available' | 'in-use' | 'maintenance' | 'retired'
+
+export interface Asset {
+  id: string
+  assetTag: string
+  name: string
+  category: AssetCategory
+  status: AssetStatus
+  projectId: string | null
+  employeeId: string | null
+  purchaseDate: string
+  purchaseCost: number
+  lastMaintenanceDate: string
+  nextMaintenanceDate: string
+  location: string
+  notes: string
+}
+
 export interface AppData {
   company: Company
   customers: Customer[]
@@ -117,4 +170,7 @@ export interface AppData {
   projects: Project[]
   employees: Employee[]
   timeOffRequests: TimeOffRequest[]
+  suppliers: Supplier[]
+  inventory: InventoryItem[]
+  assets: Asset[]
 }

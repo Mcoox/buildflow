@@ -2,14 +2,36 @@ import { useCallback, useEffect, useState } from 'react'
 import { seedData } from '../data/seed'
 import type { AppData } from '../types'
 
-const STORAGE_KEY = 'buildflow-data-v2'
+const STORAGE_KEY = 'buildflow-data-v3'
+const LEGACY_KEYS = ['buildflow-data-v2', 'buildflow-data']
+
+function mergeWithSeed(parsed: Partial<AppData>): AppData {
+  return {
+    ...seedData,
+    ...parsed,
+    company: parsed.company ?? seedData.company,
+    customers: parsed.customers ?? seedData.customers,
+    quotes: parsed.quotes ?? seedData.quotes,
+    invoices: parsed.invoices ?? seedData.invoices,
+    projects: parsed.projects ?? seedData.projects,
+    employees: parsed.employees ?? seedData.employees,
+    timeOffRequests: parsed.timeOffRequests ?? seedData.timeOffRequests,
+    suppliers: parsed.suppliers ?? seedData.suppliers,
+    inventory: parsed.inventory ?? seedData.inventory,
+    assets: parsed.assets ?? seedData.assets,
+  }
+}
 
 function loadData(): AppData {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) return JSON.parse(stored) as AppData
-  } catch {
-    // fall through to seed
+  for (const key of [STORAGE_KEY, ...LEGACY_KEYS]) {
+    try {
+      const stored = localStorage.getItem(key)
+      if (stored) {
+        return mergeWithSeed(JSON.parse(stored) as Partial<AppData>)
+      }
+    } catch {
+      // try next key
+    }
   }
   return seedData
 }
