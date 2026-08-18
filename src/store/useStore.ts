@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { seedData } from '../data/seed'
 import type { AppData } from '../types'
 
-const STORAGE_KEY = 'buildflow-data-v3'
-const LEGACY_KEYS = ['buildflow-data-v2', 'buildflow-data']
+const STORAGE_KEY = 'buildflow-data-v4'
+const LEGACY_KEYS = ['buildflow-data-v3', 'buildflow-data-v2', 'buildflow-data']
 
 function mergeWithSeed(parsed: Partial<AppData>): AppData {
   const company = {
@@ -17,6 +17,7 @@ function mergeWithSeed(parsed: Partial<AppData>): AppData {
     ...seedData,
     ...parsed,
     company,
+    users: parsed.users ?? seedData.users,
     customers: parsed.customers ?? seedData.customers,
     quotes: parsed.quotes ?? seedData.quotes,
     invoices: parsed.invoices ?? seedData.invoices,

@@ -1,17 +1,25 @@
 import { useRef, useState } from 'react'
 import { CompanyLogo } from '../components/CompanyLogo'
 import { PageHeader } from '../components/ui'
+import { useAuth } from '../context/AuthContext'
 import type { Store } from '../store/useStore'
 import type { Company } from '../types'
 import { readLogoFile } from '../utils/logo'
+import { hashPassword, validatePassword, verifyPassword } from '../utils/password'
 
 export function Settings({ store }: { store: Store }) {
   const { data, update } = store
+  const { currentUser } = useAuth()
   const fileRef = useRef<HTMLInputElement>(null)
   const [form, setForm] = useState<Company>({ ...data.company })
   const [logoPreview, setLogoPreview] = useState<string | null>(data.company.logoUrl)
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState('')
+  const [pwSaved, setPwSaved] = useState(false)
+  const [pwError, setPwError] = useState('')
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   function updateField<K extends keyof Company>(key: K, value: Company[K]) {
     setForm((prev) => ({ ...prev, [key]: value }))
@@ -49,6 +57,43 @@ export function Settings({ store }: { store: Store }) {
     setError('')
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)
+  }
+
+  async function handleChangePassword(e: React.FormEvent) {
+    e.preventDefault()
+    setPwError('')
+    if (!currentUser) return
+    if (newPassword !== confirmPassword) {
+      setPwError('New passwords do not match.')
+      return
+    }
+    const validation = validatePassword(newPassword)
+    if (validation) {
+      setPwError(validation)
+      return
+    }
+
+    const user = data.users.find((u) => u.id === currentUser.id)
+    if (!user) return
+
+    const valid = await verifyPassword(currentPassword, user.passwordHash)
+    if (!valid) {
+      setPwError('Current password is incorrect.')
+      return
+    }
+
+    const passwordHash = await hashPassword(newPassword)
+    update((prev) => ({
+      ...prev,
+      users: prev.users.map((u) =>
+        u.id === currentUser.id ? { ...u, passwordHash } : u,
+      ),
+    }))
+    setCurrentPassword('')
+    setNewPassword('')
+    setConfirmPassword('')
+    setPwSaved(true)
+    setTimeout(() => setPwSaved(false), 3000)
   }
 
   const previewCompany: Company = { ...form, logoUrl: logoPreview }
@@ -168,6 +213,53 @@ export function Settings({ store }: { store: Store }) {
               />
             </label>
           </div>
+        </section>
+
+        <section className="card settings-section">
+          <h2>Change Password</h2>
+          <p className="section-desc">
+            Update your password for <strong>{currentUser?.username}</strong>.
+          </p>
+          {pwError && <div className="alert alert-error">{pwError}</div>}
+          {pwSaved && <div className="alert alert-success">Password updated successfully.</div>}
+          <form onSubmit={handleChangePassword}>
+            <div className="form-grid">
+              <label className="full-width">
+                Current Password
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  autoComplete="current-password"
+                  required
+                />
+              </label>
+              <label>
+                New Password
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  autoComplete="new-password"
+                  placeholder="Min 8 chars, letter + number"
+                  required
+                />
+              </label>
+              <label>
+                Confirm New Password
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  autoComplete="new-password"
+                  required
+                />
+              </label>
+            </div>
+            <div className="settings-actions" style={{ marginTop: '1rem' }}>
+              <button type="submit" className="btn-primary">Update Password</button>
+            </div>
+          </form>
         </section>
 
         <section className="card settings-section settings-preview">

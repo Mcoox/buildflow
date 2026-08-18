@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { CompanyLogo } from './CompanyLogo'
+import { useAuth } from '../context/AuthContext'
 import type { Store } from '../store/useStore'
 
 const navItems = [
@@ -18,6 +19,7 @@ const navItems = [
 
 export function Layout({ store }: { store: Store }) {
   const { company } = store.data
+  const { currentUser, logout, isAdmin } = useAuth()
 
   return (
     <div className="layout">
@@ -41,11 +43,29 @@ export function Layout({ store }: { store: Store }) {
               {item.label}
             </NavLink>
           ))}
+          {isAdmin && (
+            <NavLink
+              to="/users"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <span className="nav-icon">🔐</span>
+              Users
+            </NavLink>
+          )}
         </nav>
         <div className="sidebar-footer">
+          {currentUser && (
+            <div className="sidebar-user">
+              <span className="sidebar-user-name">{currentUser.firstName} {currentUser.lastName}</span>
+              <span className="sidebar-user-role">{currentUser.role}</span>
+            </div>
+          )}
           <NavLink to="/settings" className="sidebar-footer-link">
             ⚙️ Company Settings
           </NavLink>
+          <button type="button" className="sidebar-logout" onClick={logout}>
+            Sign Out
+          </button>
         </div>
       </aside>
       <main className="main-content">

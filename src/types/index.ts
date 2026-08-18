@@ -112,6 +112,22 @@ export interface Company {
   logoUrl: string | null
 }
 
+export type UserRole = 'admin' | 'manager' | 'staff'
+export type UserStatus = 'active' | 'inactive'
+
+export interface AppUser {
+  id: string
+  username: string
+  email: string
+  firstName: string
+  lastName: string
+  role: UserRole
+  status: UserStatus
+  passwordHash: string
+  createdAt: string
+  lastLogin: string | null
+}
+
 export type SupplierStatus = 'active' | 'inactive'
 export type SupplierCategory = 'materials' | 'equipment' | 'services' | 'subcontractor'
 
@@ -167,6 +183,7 @@ export interface Asset {
 
 export interface AppData {
   company: Company
+  users: AppUser[]
   customers: Customer[]
   quotes: Quote[]
   invoices: Invoice[]
