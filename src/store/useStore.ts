@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { seedData } from '../data/seed'
 import type { AppData } from '../types'
 
-const STORAGE_KEY = 'buildflow-data'
+const STORAGE_KEY = 'buildflow-data-v2'
 
 function loadData(): AppData {
   try {

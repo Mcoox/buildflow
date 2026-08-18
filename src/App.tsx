@@ -6,6 +6,7 @@ import { HR } from './pages/HR'
 import { Invoices } from './pages/Invoices'
 import { Projects } from './pages/Projects'
 import { Quotes } from './pages/Quotes'
+import { Tutorial } from './pages/Tutorial'
 import { useStore } from './store/useStore'
 
 function AppRoutes() {
@@ -20,6 +21,7 @@ function AppRoutes() {
         <Route path="invoices" element={<Invoices store={store} />} />
         <Route path="projects" element={<Projects store={store} />} />
         <Route path="hr" element={<HR store={store} />} />
+        <Route path="tutorial" element={<Tutorial store={store} />} />
       </Route>
     </Routes>
   )

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { EmptyState, Modal, PageHeader, StatusBadge } from '../components/ui'
 import type { Store } from '../store/useStore'
 import type { Employee, EmployeeStatus, TimeOffRequest } from '../types'
-import { formatDate, generateId } from '../utils/format'
+import { formatDate, generateId, formatHourlyRate } from '../utils/format'
 
 export function HR({ store }: { store: Store }) {
   const { data, update } = store
@@ -189,7 +189,7 @@ export function HR({ store }: { store: Store }) {
                         <span className="text-muted">{emp.phone}</span>
                       </div>
                     </td>
-                    <td>${emp.hourlyRate}/hr</td>
+                    <td>{formatHourlyRate(emp.hourlyRate)}</td>
                     <td>
                       <div className="cert-chips">
                         {emp.certifications.map((c) => (
@@ -284,7 +284,7 @@ export function HR({ store }: { store: Store }) {
               </select>
             </label>
             <label>
-              Hourly Rate ($)
+              Hourly Rate (ZAR)
               <input type="number" value={empForm.hourlyRate} onChange={(e) => setEmpForm({ ...empForm, hourlyRate: Number(e.target.value) })} />
             </label>
             <label>

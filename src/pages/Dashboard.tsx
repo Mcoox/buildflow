@@ -5,6 +5,7 @@ import { formatCurrency, lineItemsTotal } from '../utils/format'
 
 export function Dashboard({ store }: { store: Store }) {
   const { data } = store
+  const { company } = data
 
   const activeProjects = data.projects.filter((p) => p.status === 'in-progress').length
   const totalRevenue = data.invoices
@@ -29,7 +30,17 @@ export function Dashboard({ store }: { store: Store }) {
       <div className="page-header">
         <div>
           <h1>Dashboard</h1>
-          <p className="page-subtitle">Overview of your construction business</p>
+          <p className="page-subtitle">{company.name} — business overview (ZAR)</p>
+        </div>
+      </div>
+
+      <div className="company-banner card">
+        <div className="company-banner-info">
+          <h2>{company.legalName}</h2>
+          <p>{company.address}</p>
+          <p className="text-muted">
+            Reg: {company.registration} · VAT: {company.vatNumber} · {company.email} · {company.phone}
+          </p>
         </div>
       </div>
 
@@ -91,6 +102,7 @@ export function Dashboard({ store }: { store: Store }) {
             <Link to="/quotes" className="quick-action">+ Create Quote</Link>
             <Link to="/invoices" className="quick-action">+ New Invoice</Link>
             <Link to="/projects" className="quick-action">+ New Project</Link>
+            <Link to="/tutorial" className="quick-action">🎬 Watch Tutorial</Link>
           </div>
           {pendingTimeOff > 0 && (
             <div className="card-footer-note">

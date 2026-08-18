@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { COMPANY } from '../config/company'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: '📊' },
@@ -7,6 +8,7 @@ const navItems = [
   { to: '/invoices', label: 'Invoices', icon: '💰' },
   { to: '/projects', label: 'Projects', icon: '🏗️' },
   { to: '/hr', label: 'HR', icon: '👷' },
+  { to: '/tutorial', label: 'Tutorial', icon: '🎬' },
 ]
 
 export function Layout() {
@@ -16,8 +18,8 @@ export function Layout() {
         <div className="sidebar-brand">
           <span className="brand-icon">🏗️</span>
           <div>
-            <span className="brand-name">BuildFlow</span>
-            <span className="brand-tag">Construction Management</span>
+            <span className="brand-name">{COMPANY.name}</span>
+            <span className="brand-tag">{COMPANY.tagline}</span>
           </div>
         </div>
         <nav className="sidebar-nav">
@@ -34,7 +36,7 @@ export function Layout() {
           ))}
         </nav>
         <div className="sidebar-footer">
-          <span>BuildFlow v1.0</span>
+          <span>{COMPANY.name} v1.0</span>
         </div>
       </aside>
       <main className="main-content">

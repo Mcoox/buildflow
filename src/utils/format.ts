@@ -1,16 +1,20 @@
 export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-ZA', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'ZAR',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount)
 }
 
+export function formatHourlyRate(amount: number): string {
+  return `${formatCurrency(amount)}/hr`
+}
+
 export function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
+  return new Date(date).toLocaleDateString('en-ZA', {
     day: 'numeric',
+    month: 'short',
     year: 'numeric',
   })
 }

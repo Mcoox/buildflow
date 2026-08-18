@@ -272,7 +272,7 @@ export function Projects({ store }: { store: Store }) {
               </select>
             </label>
             <label>
-              Budget ($)
+              Budget (ZAR)
               <input type="number" value={form.budget} onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })} />
             </label>
             <label>

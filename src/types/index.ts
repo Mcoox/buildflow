@@ -99,7 +99,18 @@ export interface TimeOffRequest {
   reason: string
 }
 
+export interface Company {
+  name: string
+  legalName: string
+  email: string
+  phone: string
+  address: string
+  registration: string
+  vatNumber: string
+}
+
 export interface AppData {
+  company: Company
   customers: Customer[]
   quotes: Quote[]
   invoices: Invoice[]
