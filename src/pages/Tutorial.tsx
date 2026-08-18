@@ -41,15 +41,21 @@ export function Tutorial({ store }: { store: Store }) {
 
       <div className="tutorial-hero card">
         <div className="tutorial-video-wrap">
-          <video controls className="tutorial-video" poster="/tutorial-poster.svg">
-            <source src="/tutorial.mp4" type="video/mp4" />
+          <video
+            controls
+            preload="metadata"
+            playsInline
+            className="tutorial-video"
+            poster="/tutorial-poster.png"
+          >
+            <source src="/tutorial.mp4?v=2" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
         <div className="tutorial-download">
           <h2>Download Tutorial Video</h2>
           <p>Watch the step-by-step walkthrough of all {COMPANY.name} features, or download the MP4 to share with your team.</p>
-          <a href="/tutorial.mp4" download="LUSABUSISIWE-BuildFlow-Tutorial.mp4" className="btn-primary tutorial-download-btn">
+          <a href="/tutorial.mp4?v=2" download="LUSABUSISIWE-BuildFlow-Tutorial.mp4" className="btn-primary tutorial-download-btn">
             ⬇️ Download MP4 Tutorial
           </a>
         </div>
